@@ -52,13 +52,13 @@ else
 fi
 
 # Pull image if not present
-if ! docker images | grep -q dperson/samba; then
-    echo "Pulling image: dperson/samba"
-    check_command "docker pull dperson/samba"
+if ! docker images | grep -q servercontainers/samba; then
+    echo "Pulling image: servercontainers/samba"
+    check_command "docker pull servercontainers/samba"
 else
-    echo "Image exists: dperson/samba"
+    echo "Image exists: servercontainers/samba"
 fi
 
 # Run container
 echo "Starting container: ${container_name}"
-check_command "docker run --name ${container_name} --security-opt apparmor=unconfined --security-opt seccomp=unconfined -p 139:139 -p 445:445 -p 137:137/udp -p 138:138/udp -v \"$FILE:/share\" -d dperson/samba -n -u \"${username};${password}\" -s \"${share_name};/share;yes;no;no;all;none;none;Shared files\" -p -r -g \"fruit:model = MacPro7,1@ECOLOR=226,226,224\" -g \"fruit:resource = xattr\" -g \"fruit:metadata = stream\""
+check_command "docker run --name ${container_name} -p 139:139 -p 445:445 -p 137:137/udp -p 138:138/udp -v \"$FILE:/share\" -e ACCOUNT_${username}=${password} -e UID=0 -e GID=0 -e SAMBA_CONF_WORKGROUP=WORKGROUP -e SAMBA_VOLUME_CONFIG_${share_name}=\"[${share_name}]; path=/share; valid users = ${username}; guest ok = no; read only = no; browseable = yes; vfs objects = fruit streams_xattr; fruit:metadata = stream; fruit:model = MacPro7,1; fruit:posix_rename = yes; fruit:veto_appledouble = no; fruit:wipe_intentionally_left_blank_rfork = yes; fruit:delete_empty_adfiles = yes\" -d servercontainers/samba"
