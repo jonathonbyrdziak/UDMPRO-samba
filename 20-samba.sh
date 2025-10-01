@@ -61,4 +61,4 @@ fi
 
 # Run container
 echo "Starting container: ${container_name}"
-check_command "docker run --name ${container_name} -p 139:139 -p 445:445 -p 137:137/udp -p 138:138/udp -v \"$FILE:/share\" -d dperson/samba -n -u \"${username};${password}\" -s \"${share_name};/share;yes;no;no;all;none;none;Shared files\" -p -r -g \"fruit:model = MacPro7,1@ECOLOR=226,226,224\" -g \"fruit:resource = xattr\" -g \"fruit:metadata = stream\""
+check_command "docker run --name ${container_name} --security-opt apparmor=unconfined --security-opt seccomp=unconfined -p 139:139 -p 445:445 -p 137:137/udp -p 138:138/udp -v \"$FILE:/share\" -d dperson/samba -n -u \"${username};${password}\" -s \"${share_name};/share;yes;no;no;all;none;none;Shared files\" -p -r -g \"fruit:model = MacPro7,1@ECOLOR=226,226,224\" -g \"fruit:resource = xattr\" -g \"fruit:metadata = stream\""
