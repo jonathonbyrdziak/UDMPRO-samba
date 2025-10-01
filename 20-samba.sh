@@ -45,9 +45,8 @@ done
 
 # starting the container
 if [ "$(docker ps -a -q -f name=${container_name})" ]; then
-    echo "Existing container found: Killing and removing ${container_name}"
-    check_command "docker kill ${container_name}"
-    check_command "docker rm ${container_name}"
+    echo "Existing container found: Removing ${container_name}"
+    check_command "docker rm -f ${container_name}"
 else
     echo "No existing container: ${container_name}"
 fi
