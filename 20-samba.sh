@@ -24,9 +24,9 @@ fi
 
 # starting the container
 
-if [ "$(podman ps -a -q -f name=${container_name})" ]; then
-  podman kill ${container_name}
-  podman rm ${container_name}
+if [ "$(docker ps -a -q -f name=${container_name})" ]; then
+  docker kill ${container_name}
+  docker rm ${container_name}
 fi
 
-podman run --name ${container_name} -p 139:139 -p 445:445 -p 137:137/udp -p 138:138/udp -v "$FILE:/share:Z" -d dperson/samba -n -u "${username};${password}" -s "${share_name};/share;yes;no;no;all;none;none;Shared files" -p -r -g "fruit:model = MacPro7,1@ECOLOR=226,226,224" -g "fruit:resource = xattr" -g "fruit:metadata = stream"
+docker run --name ${container_name} -p 139:139 -p 445:445 -p 137:137/udp -p 138:138/udp -v "$FILE:/share" -d dperson/samba -n -u "${username};${password}" -s "${share_name};/share;yes;no;no;all;none;none;Shared files" -p -r -g "fruit:model = MacPro7,1@ECOLOR=226,226,224" -g "fruit:resource = xattr" -g "fruit:metadata = stream"
