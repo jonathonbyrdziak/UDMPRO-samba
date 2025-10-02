@@ -13,7 +13,7 @@ Samba server on UDM-Pro using the drive bay.
 2. Download [20-samba.sh](https://raw.githubusercontent.com/thealpa/UDMPRO-samba/udmsamba-master/20-samba.sh) to your UDM-Pro in `/mnt/data/on_boot.d`:
 
     ```bash
-    curl "https://raw.githubusercontent.com/thealpa/UDMPRO-samba/udmsamba-master/20-samba.sh" -o /mnt/data/on_boot.d/20-samba.sh
+    curl "https://raw.githubusercontent.com/jonathonbyrdziak/UDMPRO-samba/refs/heads/udmsamba-master/20-samba.sh" -o /mnt/data/on_boot.d/20-samba.sh
     ```
 
 3. (Optional) Adjust any settings if you want:
